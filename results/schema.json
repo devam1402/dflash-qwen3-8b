@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DFlash Benchmark Result",
+  "type": "object",
+  "required": [
+    "bench",
+    "class",
+    "concurrency",
+    "speculation",
+    "K",
+    "tau",
+    "alpha",
+    "per_pos",
+    "output_tokens_per_second",
+    "ttft_ms",
+    "tpot_ms",
+    "goodput_slo"
+  ],
+  "properties": {
+    "bench": {
+      "type": "string"
+    },
+    "class": {
+      "type": "string"
+    },
+    "concurrency": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "speculation": {
+      "type": "boolean"
+    },
+    "K": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "tau": {
+      "type": ["number", "null"]
+    },
+    "alpha": {
+      "type": ["number", "null"]
+    },
+    "per_pos": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "output_tokens_per_second": {
+      "type": "number"
+    },
+    "ttft_ms": {
+      "type": "number"
+    },
+    "tpot_ms": {
+      "type": "number"
+    },
+    "goodput_slo": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false
+}

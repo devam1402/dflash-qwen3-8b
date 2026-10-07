@@ -1,0 +1,15 @@
+target_model:
+  name: Qwen/Qwen3-8B
+
+speculative:
+  method: dflash
+  model: "<YOUR_HF_ORG>/Qwen3-8B-speculator.dflash"
+  num_speculative_tokens: 7
+
+server:
+  tensor_parallel_size: 1
+  max_model_len: 16384
+
+generation:
+  temperature: 0.0
+  max_tokens: 512

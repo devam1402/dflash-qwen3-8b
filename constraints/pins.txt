@@ -1,0 +1,21 @@
+# Runtime dependency pins
+#
+# IMPORTANT:
+# Replace the placeholders below with the exact versions/commit
+# from the environment used to train the published checkpoint.
+#
+# This file is the reproducibility source of truth.
+
+python==3.11
+
+torch==<EXACT_TORCH_VERSION>
+transformers==<EXACT_TRANSFORMERS_VERSION>
+vllm==<EXACT_VLLM_VERSION>
+
+# Pin the exact Speculators release or commit used for training.
+# Example:
+# speculators @ git+https://github.com/RedHatAI/speculators.git@<COMMIT_SHA>
+speculators==<EXACT_SPECULATORS_VERSION>
+
+pyyaml==<EXACT_PYYAML_VERSION>
+jsonschema==<EXACT_JSONSCHEMA_VERSION>

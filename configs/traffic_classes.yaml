@@ -1,0 +1,10 @@
+classes:
+  - coding
+  - reasoning
+  - qa
+  - rag
+  - summarization
+  - translation
+  - writing
+  - structured_output
+  - tool_call

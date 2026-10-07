@@ -1,0 +1,41 @@
+project:
+  name: dflash-qwen3-8b
+  version: "0.1.0"
+
+target:
+  model: Qwen/Qwen3-8B
+
+speculator:
+  type: dflash
+  architecture: qwen3
+  num_layers: 5
+  draft_vocab_size: 32000
+
+target_layer_ids:
+  - 2
+  - 10
+  - 18
+  - 26
+  - 34
+
+dflash:
+  block_size: 8
+  max_anchors: 3072
+
+training:
+  total_seq_len: 8192
+  epochs: 3
+  learning_rate: 0.0006
+  scheduler: cosine
+  seed: 42
+
+serving_contract:
+  num_speculative_tokens: 7
+
+reproducibility:
+  speculators_version: "<PIN_AFTER_ENV_CHECK>"
+  vllm_version: "<PIN_AFTER_ENV_CHECK>"
+
+checkpoint:
+  hf_repo: "<YOUR_HF_ORG>/Qwen3-8B-speculator.dflash"
+  hf_revision: "<SET_AFTER_PUBLISH>"

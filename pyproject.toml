@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dflash-qwen3-8b"
+version = "0.1.0"
+description = "Custom DFlash speculative decoding project for Qwen3-8B"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "pyyaml>=6.0,<7",
+    "jsonschema>=4.0,<5",
+]
+
+[project.optional-dependencies]
+eval = [
+    "prometheus-client>=0.20,<1",
+]
+
+[tool.setuptools]
+packages = []

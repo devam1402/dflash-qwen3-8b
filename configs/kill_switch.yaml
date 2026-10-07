@@ -1,0 +1,17 @@
+enabled: true
+
+thresholds:
+  min_acceptance_rate: 0.20
+  max_tpot_regression_percent: 10
+
+policy:
+  low_acceptance:
+    action: reduce_speculative_tokens
+    from: 7
+    to: 5
+
+  continued_regression:
+    action: disable_speculation
+
+recovery:
+  consecutive_good_windows: 3

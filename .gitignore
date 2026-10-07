@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+
+# Model artifacts
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+
+# Training outputs
+checkpoints/*
+!checkpoints/README.md
+
+outputs/
+runs/
+wandb/
+mlruns/
+
+# Hidden states
+hidden_states/
+*.arrow
+*.parquet
+
+# Logs
+*.log
+logs/
+
+# Benchmark generated output
+results/generated/
+results/raw/
+
+# Local data
+data/
+datasets/
+
+# Temporary
+tmp/
+temp/
