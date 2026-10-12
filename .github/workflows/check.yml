@@ -20,7 +20,7 @@ jobs:
       - name: Install validation dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyyaml jsonschema
+          pip install pyyaml jsonschema pytest
 
       - name: Validate YAML
         run: |
@@ -52,6 +52,9 @@ jobs:
           else
             echo "No scripts yet - Stage 1"
           fi
+
+      - name: Run unit tests
+        run: python -m pytest -q
 
       - name: Make check
         run: make check

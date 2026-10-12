@@ -18,10 +18,12 @@
   ],
   "properties": {
     "bench": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "class": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "concurrency": {
       "type": "integer",
@@ -35,28 +37,111 @@
       "minimum": 0
     },
     "tau": {
-      "type": ["number", "null"]
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
     },
     "alpha": {
-      "type": ["number", "null"]
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
     },
     "per_pos": {
       "type": "array",
       "items": {
-        "type": "number"
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
       }
     },
     "output_tokens_per_second": {
-      "type": "number"
+      "type": "number",
+      "minimum": 0
     },
     "ttft_ms": {
-      "type": "number"
+      "type": "number",
+      "minimum": 0
     },
     "tpot_ms": {
-      "type": "number"
+      "type": "number",
+      "minimum": 0
     },
     "goodput_slo": {
-      "type": "number"
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "run_type": {
+          "type": "string",
+          "enum": [
+            "synthetic",
+            "real"
+          ]
+        },
+        "hardware": {
+          "type": "string"
+        },
+        "gpu_name": {
+          "type": "string"
+        },
+        "gpu_memory_gb": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "driver_version": {
+          "type": "string"
+        },
+        "cuda_version": {
+          "type": "string"
+        },
+        "python_version": {
+          "type": "string"
+        },
+        "torch_version": {
+          "type": "string"
+        },
+        "vllm_version": {
+          "type": "string"
+        },
+        "speculators_version": {
+          "type": "string"
+        },
+        "target_model": {
+          "type": "string"
+        },
+        "target_model_revision": {
+          "type": "string"
+        },
+        "speculator_revision": {
+          "type": "string"
+        },
+        "dataset": {
+          "type": "string"
+        },
+        "dataset_revision": {
+          "type": "string"
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$"
+        },
+        "git_commit": {
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{7,40}$"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
