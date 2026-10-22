@@ -77,9 +77,11 @@ start_server() {
   mode="$1"; logfile="$LOG/vllm-$mode.log"; stop_server
   if [ "$mode" = extract ]; then
     mkdir -p "$HS"
-    nohup "$VENV/bin/python" -m vllm.entrypoints.cli.main serve "$MODEL" --host 127.0.0.1 --port 8000 --gpu-memory-utilization 0.85 --max-model-len 8192 --max-num-seqs 2 --no-enable-chunked-prefill \
+    nohup "$VENV/bin/python" -m vllm.entrypoints.cli.main serve "$MODEL" \
       --speculative_config '{"method":"extract_hidden_states","num_speculative_tokens":1,"draft_model_config":{"hf_config":{"eagle_aux_hidden_state_layer_ids":[2,10,18,26,34,36]}}}' \
-      --kv_transfer_config "{\"kv_connector\":\"ExampleHiddenStatesConnector\",\"kv_role\":\"kv_producer\",\"kv_connector_extra_config\":{\"shared_storage_path\":\"$HS\",\"allow_custom_save_path\":true}}" >"$logfile" 2>&1 &
+      --kv_transfer_config "{\"kv_connector\":\"ExampleHiddenStatesConnector\",\"kv_role\":\"kv_producer\",\"kv_connector_extra_config\":{\"shared_storage_path\":\"$HS\"}}" \
+      --enable-scale-out --api-server-count 1 --renderer-num-workers 2 --port 8000 \
+      --gpu-memory-utilization 0.85 --max-model-len 8192 >"$logfile" 2>&1 &
   else
     nohup "$VENV/bin/python" -m vllm.entrypoints.cli.main serve "$MODEL" --host 127.0.0.1 --port 8000 --gpu-memory-utilization 0.85 --max-model-len 8192 --max-num-seqs 4 >"$logfile" 2>&1 &
   fi
