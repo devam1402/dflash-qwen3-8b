@@ -94,7 +94,7 @@ start_server() {
 }
 if [ ! -s "$FILTERED" ]; then
   start_server normal
-  "$VENV/bin/speculators" regenerate-responses --endpoint http://127.0.0.1:8000/v1/chat/completions --model "$MODEL" --dataset ultrachat --split train_sft --limit 500 --concurrency 4 --max-tokens 1024 --sampling-params '{"temperature":0.6,"top_p":0.95,"seed":42,"chat_template_kwargs":{"enable_thinking":false}}' --seed 42 --outfile "$RESP" --resume 2>&1 | tee "$LOG/regenerate-responses.log"
+  "$VENV/bin/speculators" regenerate-responses --endpoint http://127.0.0.1:8000/v1/chat/completions --model "$MODEL" --dataset ultrachat --split train_sft --limit 500 --concurrency 4 --max-tokens 8192 --sampling-params '{"temperature":0.6,"top_p":0.95,"seed":42}' --seed 42 --outfile "$RESP" --resume 2>&1 | tee "$LOG/regenerate-responses.log"
   stop_server
   "$VENV/bin/python" - "$RESP" "$FILTERED" <<'PY'
 import json, pathlib, sys
@@ -103,7 +103,10 @@ with src.open() as fi,dst.open("w") as fo:
  for line in fi:
   try: row=json.loads(line)
   except json.JSONDecodeError: continue
-  if row.get("finish_reason")=="stop" and (row.get("chat_template_kwargs") or {}).get("enable_thinking") is False:
+  meta=row.get("metadata") or {}
+  sampling=meta.get("sampling_params") or {}
+  kwargs=sampling.get("chat_template_kwargs") or {}
+  if meta.get("finish_reason")=="stop" and kwargs.get("enable_thinking") is False:
    fo.write(json.dumps(row,ensure_ascii=False)+"\n"); n+=1
 print("Filtered stop-only rows:",n)
 if n<100: raise SystemExit("Too few valid rows; inspect regeneration log.")
@@ -116,7 +119,7 @@ fi
 count=$(find "$HS" -maxdepth 1 -type f -name '*.safetensors' 2>/dev/null | wc -l)
 if [ "$count" -lt 800 ]; then
   start_server extract
-  "$VENV/bin/speculators" generate-offline-data --model "$MODEL" --endpoint http://127.0.0.1:8000/v1 --preprocessed-data "$PREP" --output "$HS" --concurrency 1 --validate-outputs --request-timeout 300 --max-retries 2 --fail-on-error 2>&1 | tee "$LOG/generate-offline-data.log"
+  "$VENV/bin/speculators" generate-offline-data --model "$MODEL" --endpoint http://127.0.0.1:8000/v1 --preprocessed-data "$PREP" --output "$HS" --concurrency 1 --validate-outputs --fail-on-error 2>&1 | tee "$LOG/generate-offline-data.log"
   stop_server
 fi
 count=$(find "$HS" -maxdepth 1 -type f -name '*.safetensors' 2>/dev/null | wc -l)
