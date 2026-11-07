@@ -1,0 +1,27 @@
+{
+  "run_id": "dflash-qwen3-8b-500",
+  "date": "2026-11-07",
+  "target": "Qwen/Qwen3-8B",
+  "target_layer_ids": [2, 10, 18, 26],
+  "seq_len": 2000,
+  "max_anchors": 512,
+  "epochs": 3,
+  "best_epoch": 2,
+  "val_loss": 1.709,
+  "val_eal": 1.492,
+  "val_full_acc": 0.132,
+  "val_position_acc": [0.340, 0.206, 0.128, 0.087, 0.066, 0.050, 0.042],
+  "serving": {
+    "vllm": "0.31.0",
+    "gpu": "NVIDIA RTX PRO 4500 Blackwell 32GB",
+    "max_model_len": 4096,
+    "num_speculative_tokens": 7,
+    "temperature": 0,
+    "mean_acceptance_length": 1.50,
+    "per_position_acceptance": [0.405, 0.095, 0, 0, 0, 0, 0],
+    "accepted_tokens": 21,
+    "drafted_tokens": 294,
+    "draft_acceptance_rate": 0.071,
+    "target_only_baseline": null
+  }
+}

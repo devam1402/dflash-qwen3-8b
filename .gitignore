@@ -57,3 +57,8 @@ datasets/
 # Temporary
 tmp/
 temp/
+artifacts/
+0/
+1/
+2/
+logs/*.log
